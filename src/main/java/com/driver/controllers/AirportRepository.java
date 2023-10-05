@@ -50,23 +50,23 @@ public class AirportRepository {
         flightDb.put(flight.getFlightId(), flight);
     }
 
-    public void addPassengerToDb(Passenger passenger) {
+    public String addPassengerToDb(Passenger passenger) {
         passengerDb.put(passenger.getPassengerId(), passenger);
+        return "SUCCESS";
     }
 
     public double getShortestDurationOfPossibleBetweenTwoCitiesFromDb(City fromCity, City toCity) {
-        double shortestTime = Integer.MAX_VALUE;
+        double shortestTime = Double.MAX_VALUE;
 
-        for(Integer flightId : flightDb.keySet()) {
-            Flight currFlight = flightDb.get(flightId);
+        for(Flight currFlight : flightDb.values()) {
             if(currFlight.getFromCity().equals(fromCity) && currFlight.getToCity().equals(toCity)) {
                 shortestTime = Math.min(shortestTime,currFlight.getDuration());
             }
         }
-        if(shortestTime==Integer.MAX_VALUE) {
+        if(shortestTime==Double.MAX_VALUE) {
             return -1;
         }
-        return -1;
+        return shortestTime;
     }
 
     public String bookFightTicketOnDB(Integer flightId, Integer passengerId) {
@@ -150,7 +150,11 @@ public class AirportRepository {
     public String getAirportNameFromTheFlightOnDB(Integer flightId) {
         if(flightDb.containsKey(flightId)) {
             City Takeoffcity = flightDb.get(flightId).getFromCity();
-            return Takeoffcity.toString();
+            for(Airport currAirport: airPortDb.values()) {
+                if (currAirport.getCity().equals(Takeoffcity)) {
+                    return currAirport.getAirportName();
+                }
+            }
         }
         return null;
     }

@@ -134,11 +134,10 @@ public class AirportController {
     @PostMapping("/add-passenger")
     public String addPassenger(@RequestBody Passenger passenger){
 
-        serviceLayer.addPassenger(passenger);
         //Add a passenger to the database
         //And return a "SUCCESS" message if the passenger has been added successfully.
 
-       return null;
+       return serviceLayer.addPassenger(passenger);
     }
 
 

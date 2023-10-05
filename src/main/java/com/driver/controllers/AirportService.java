@@ -28,8 +28,8 @@ public class AirportService {
         repositoryLayer.addFlightToDB(flight);
     }
 
-    public void addPassenger(Passenger passenger) {
-        repositoryLayer.addPassengerToDb(passenger);
+    public String addPassenger(Passenger passenger) {
+        return repositoryLayer.addPassengerToDb(passenger);
     }
 
     public double ShortestDurationOfPossibleBetweenTwoCities(City fromCity, City toCity) {
